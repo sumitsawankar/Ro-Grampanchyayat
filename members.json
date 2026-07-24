@@ -1,0 +1,29 @@
+[
+  {
+    "id": "m1",
+    "houseNumber": "H-101",
+    "name": "Harsh Choudhary",
+    "address": "House No 101, Main Road, Yerla",
+    "phone": "9876543210",
+    "aadharNumber": "1234-5678-9012",
+    "createdAt": "2026-07-24T10:00:00.000Z"
+  },
+  {
+    "id": "m2",
+    "houseNumber": "H-102",
+    "name": "Sumit Sawankar",
+    "address": "Plot No 42, Station Road, Yerla",
+    "phone": "9988776655",
+    "aadharNumber": "9876-5432-1098",
+    "createdAt": "2026-07-24T10:15:00.000Z"
+  },
+  {
+    "id": "m3",
+    "houseNumber": "H-103",
+    "name": "Priya Sharma",
+    "address": "Wada No 12, Market Square, Yerla",
+    "phone": "9123456789",
+    "aadharNumber": "5566-7788-9900",
+    "createdAt": "2026-07-24T10:30:00.000Z"
+  }
+]

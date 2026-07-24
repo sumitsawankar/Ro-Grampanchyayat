@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grampanchayat Yerla - RO Water</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo" id="nav-logo" style="cursor: pointer;" onclick="window.location.href='index.html'">
+            <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" fill="var(--primary-color)" stroke="none"></path>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="var(--secondary-color)"></path>
+            </svg>
+            <div class="logo-text">
+                <span class="en-title">Grampanchayat Yerla <span class="subtext">| RO Water</span></span>
+                <span class="mr-title">ग्रामपंचायत येरळा <span class="subtext">| बहुउद्देशीय पाणी योजना</span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main id="app-content">
+
+        <!-- HOME / LANDING VIEW -->
+        <section id="view-home" class="view-section active">
+            <div class="hero-section">
+                <h1>Welcome / आपले स्वागत आहे</h1>
+                <p>Clean and pure water, delivered to your door. <br> स्वच्छ आणि शुद्ध पाणी, तुमच्या दारात.</p>
+            </div>
+
+            <div class="portal-cards"
+                style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); max-width: 800px; margin: 0 auto;">
+                <a href="citizen.html" class="portal-card-link">
+                    <div class="portal-card" id="card-client">
+                        <div class="portal-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <h3>Citizen Portal<br>नागरिक पोर्टल</h3>
+                        <p>Request Water via Unique House Number<br>घर क्रमांकाद्वारे पाण्याची मागणी नोंदवा</p>
+                    </div>
+                </a>
+
+                <a href="manager.html" class="portal-card-link">
+                    <div class="portal-card" id="card-manager">
+                        <div class="portal-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <h3>Manager Login<br>व्यवस्थापक लॉगिन</h3>
+                        <p>Register Villagers & Fulfill Requests<br>नागरिक नोंदणी आणि मागणी व्यवस्थापन</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+    </main>
+</body>
+
+</html>

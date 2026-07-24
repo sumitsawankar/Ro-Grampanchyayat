@@ -1,0 +1,9 @@
+{
+  "name": "grampanchayat-yerla",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grampanchayat Yerla - Monthly Subscription</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo" id="nav-logo" style="cursor: pointer;" onclick="window.location.href='index.html'">
+            <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" fill="var(--primary-color)" stroke="none"></path>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="var(--secondary-color)"></path>
+            </svg>
+            <div class="logo-text">
+                <span class="en-title">Grampanchayat Yerla <span class="subtext">| RO Water</span></span>
+                <span class="mr-title">ग्रामपंचायत येरळा <span class="subtext">| बहुउद्देशीय पाणी योजना</span></span>
+            </div>
+        </div>
+        <div class="nav-links" id="nav-actions">
+            <button class="secondary-btn" id="btn-home" onclick="window.location.href='index.html'">Home / मुख्यपृष्ठ</button>
+        </div>
+    </nav>
+
+    <main id="app-content">
+        
+        <!-- SUBSCRIPTION VIEW -->
+        <section id="view-bill" class="view-section active">
+            <div class="hero-section">
+                <h2>Monthly Subscription<br>मासिक वर्गणी</h2>
+                <p>Register for monthly delivery / मासिक वितरणासाठी नोंदणी करा</p>
+            </div>
+            
+            <div class="form-container glass-card">
+                <form id="subscription-form" enctype="multipart/form-data">
+                    <input type="hidden" name="ticketType" value="Subscription" />
+                    <div class="input-group">
+                        <label>Full Name / पूर्ण नाव</label>
+                        <input type="text" name="name" required placeholder="e.g. Harsh Choudhary" />
+                    </div>
+                    <div class="input-group">
+                        <label>Address / पत्ता</label>
+                        <input type="text" name="address" required placeholder="e.g. House 42, Main Street" />
+                    </div>
+                    <div class="input-group">
+                        <label>Contact Number / संपर्क क्रमांक</label>
+                        <input type="tel" name="phone" required placeholder="e.g. 7796797945" />
+                    </div>
+                    <div class="input-group">
+                        <label>Cans per Month / दरमहा कॅन्स</label>
+                        <input type="number" name="numberOfCans" min="1" max="100" value="30" required />
+                    </div>
+                    <div class="input-group">
+                        <label>Payment Method / पेमेंट पद्धत</label>
+                        <select name="paymentMethod" id="payment-method" required class="file-input" style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; font-family: inherit; font-size: 1rem;">
+                            <option value="UPI">UPI</option>
+                            <option value="Cash">Cash / रोख</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group" id="receipt-group">
+                        <label>Upload UPI Receipt / UPI पावती <span style="color:#ef4444">*</span></label>
+                        <input type="file" name="receiptPhoto" id="receipt-photo" accept="image/png, image/jpeg, image/webp" class="file-input" required />
+                    </div>
+
+                    <div class="input-group">
+                        <label>Upload Aadhar Proof / आधार पुरावा <span style="color:#ef4444">*</span></label>
+                        <input type="file" name="photo" accept="image/png, image/jpeg, image/webp" class="file-input" required />
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-sub">Register Subscription / वर्गणी नोंदवा</button>
+                    <div id="sub-message" class="message hidden"></div>
+                </form>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Supabase Client CDN & Config -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="monthly.js"></script>
+</body>
+</html>

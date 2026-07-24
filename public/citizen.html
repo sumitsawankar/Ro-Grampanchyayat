@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grampanchayat Yerla - Citizen Portal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo" id="nav-logo" style="cursor: pointer;" onclick="window.location.href='index.html'">
+            <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" fill="var(--primary-color)" stroke="none"></path>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="var(--secondary-color)"></path>
+            </svg>
+            <div class="logo-text">
+                <span class="en-title">Grampanchayat Yerla <span class="subtext">| RO Water</span></span>
+                <span class="mr-title">ग्रामपंचायत येरळा <span class="subtext">| बहुउद्देशीय पाणी योजना</span></span>
+            </div>
+        </div>
+        <div class="nav-links" id="nav-actions">
+            <button class="secondary-btn" id="btn-home" onclick="window.location.href='index.html'">Home / मुख्यपृष्ठ</button>
+        </div>
+    </nav>
+
+    <main id="app-content">
+        
+        <!-- CITIZEN WATER REQUEST VIEW -->
+        <section id="view-citizen" class="view-section active">
+            <div class="hero-section">
+                <h2>Request RO Water Can<br>पाण्याची मागणी नोंदवा</h2>
+                <p>Enter your Unique House Number to request water cans<br>पाण्याच्या कॅनची मागणी करण्यासाठी तुमचा युनिक घर क्रमांक टाका</p>
+            </div>
+            
+            <div class="form-container glass-card" style="max-width: 650px;">
+                <form id="citizen-request-form">
+                    
+                    <!-- STEP 1: House Number Lookup -->
+                    <div class="input-group">
+                        <label for="house-number" style="font-weight: 700; font-size: 1.05rem;">
+                            Unique House Number / युनिक घर क्रमांक <span style="color:#ef4444">*</span>
+                        </label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="text" id="house-number" name="houseNumber" required placeholder="e.g. H-101" style="text-transform: uppercase; font-weight: 600; font-size: 1.1rem; letter-spacing: 1px;" />
+                            <button type="button" id="btn-verify-house" class="secondary-btn" style="white-space: nowrap; padding: 0.75rem 1.2rem;">Verify / पडताळा</button>
+                        </div>
+                        <small style="color:var(--text-muted); margin-top: 4px;">Registered by Gram Panchayat Manager / ग्रामपंचायत व्यवस्थापकाद्वारे नोंदणीकृत</small>
+                    </div>
+
+                    <!-- Member Verified Card -->
+                    <div id="member-verified-card" class="hidden" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                        <div style="display: flex; align-items: center; gap: 8px; color: #047857; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            House Details Verified / घर तपशील पडताळले
+                        </div>
+                        <div style="font-size: 0.95rem; color: #1f2937;">
+                            <p style="margin: 2px 0;"><strong>Name / नाव:</strong> <span id="verified-name">-</span></p>
+                            <p style="margin: 2px 0;"><strong>Address / पत्ता:</strong> <span id="verified-address">-</span></p>
+                            <p style="margin: 2px 0;"><strong>Phone / मोबाईल:</strong> <span id="verified-phone">-</span></p>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Select Water Order Type -->
+                    <div class="input-group">
+                        <label style="font-weight: 700;">Select Order Type / मागणीचा प्रकार निवडा</label>
+                        <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                            <label style="flex: 1; display: flex; align-items: center; gap: 8px; padding: 0.85rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; background: #fff;">
+                                <input type="radio" name="orderType" value="Daily" checked id="radio-daily" />
+                                <div>
+                                    <strong style="display: block;">Daily Ad-hoc Request</strong>
+                                    <span style="font-size: 0.85rem; color: var(--text-muted);">दैनंदिन मागणी</span>
+                                </div>
+                            </label>
+                            <label style="flex: 1; display: flex; align-items: center; gap: 8px; padding: 0.85rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; background: #fff;">
+                                <input type="radio" name="orderType" value="Monthly" id="radio-monthly" />
+                                <div>
+                                    <strong style="display: block;">Monthly Package</strong>
+                                    <span style="font-size: 0.85rem; color: var(--text-muted);">मासिक पॅकेज</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- DAILY CANS INPUT SECTION -->
+                    <div id="section-daily" class="input-group">
+                        <label for="daily-cans" style="font-weight: 600;">Number of Cans / कॅनची संख्या (1-20)</label>
+                        <input type="number" id="daily-cans" name="dailyCans" min="1" max="20" value="1" style="font-size: 1.1rem;" />
+                    </div>
+
+                    <!-- MONTHLY PACKAGE SECTION -->
+                    <div id="section-monthly" class="input-group hidden">
+                        <label for="monthly-cans-select" style="font-weight: 600;">Select Monthly Cans Requirement / मासिक कॅनची गरज निवडा</label>
+                        <select id="monthly-cans-select" name="monthlyCans" style="padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color); font-size: 1rem; font-family: inherit; background: #fff; width: 100%;">
+                            <option value="15">15 Cans / Month (१५ कॅन्स प्रति महिना)</option>
+                            <option value="30" selected>30 Cans / Month (३० कॅन्स प्रति महिना)</option>
+                            <option value="60">60 Cans / Month (६० कॅन्स प्रति महिना)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-request-btn" style="margin-top: 1rem;">
+                        Submit Water Request / पाणी मागणी पाठवा
+                    </button>
+                    
+                    <div id="citizen-form-message" class="message hidden"></div>
+                </form>
+            </div>
+        </section>
+        
+    </main>
+
+    <script src="citizen.js"></script>
+</body>
+</html>

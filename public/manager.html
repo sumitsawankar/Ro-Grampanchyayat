@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grampanchayat Yerla - Manager Portal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- PDF Export Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo" id="nav-logo" style="cursor: pointer;" onclick="window.location.href='index.html'">
+            <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" fill="var(--primary-color)" stroke="none"></path>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="var(--secondary-color)"></path>
+            </svg>
+            <div class="logo-text">
+                <span class="en-title">Grampanchayat Yerla <span class="subtext">| RO Water</span></span>
+                <span class="mr-title">ग्रामपंचायत येरळा <span class="subtext">| बहुउद्देशीय पाणी योजना</span></span>
+            </div>
+        </div>
+        <div class="nav-links" id="nav-actions">
+            <button class="secondary-btn" id="btn-home" onclick="window.location.href='index.html'">Home / मुख्यपृष्ठ</button>
+            <button class="secondary-btn" id="btn-logout" style="display:none;">Logout / लॉगआउट</button>
+        </div>
+    </nav>
+
+    <main id="app-content">
+
+        <!-- MANAGER LOGIN VIEW -->
+        <section id="view-login" class="view-section active">
+            <div class="form-container glass-card manager-auth">
+                <h2>Manager Login / व्यवस्थापक लॉगिन</h2>
+                <form id="login-form">
+                    <div class="input-group">
+                        <label for="password">Enter Manager Password / पासवर्ड प्रविष्ट करा</label>
+                        <input type="password" id="password" required placeholder="Enter password (yerla123)" />
+                        <small style="color:var(--text-muted); margin-top:4px;">Manager Password: <strong>yerla123</strong></small>
+                    </div>
+                    <button type="submit" class="submit-btn">Login / लॉग इन करा</button>
+                    <div id="login-error" class="message error hidden">Incorrect Password / चुकीचा पासवर्ड</div>
+                </form>
+            </div>
+        </section>
+
+        <!-- MANAGER DASHBOARD VIEW -->
+        <section id="view-manager" class="view-section hidden">
+            <div class="dashboard-header">
+                <h2>Manager Control Dashboard / व्यवस्थापक नियंत्रण डॅशबोर्ड</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-members">0</span>
+                        <span class="stat-label">Members Registered / नोंदणीकृत सदस्य</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-pending">0</span>
+                        <span class="stat-label">Pending Requests / प्रलंबित मागण्या</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-fulfilled">0</span>
+                        <span class="stat-label">Fulfilled Requests / पूर्ण झालेले</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB CONTROLS -->
+            <div class="tabs-container" style="display:flex; gap:0.5rem; margin-bottom:1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; flex-wrap: wrap;">
+                <button class="tab-btn active secondary-btn" id="tab-requests" style="flex:1; font-weight:600;">
+                    🌊 Water Requests / पाणी मागण्या
+                </button>
+                <button class="tab-btn secondary-btn" id="tab-add-member" style="flex:1; font-weight:600;">
+                    ➕ Add New Member / नवीन सदस्य नोंदणी
+                </button>
+                <button class="tab-btn secondary-btn" id="tab-view-members" style="flex:1; font-weight:600;">
+                    📋 Member Directory / सदस्य यादी
+                </button>
+            </div>
+
+            <!-- TAB 1: WATER REQUESTS -->
+            <div id="tab-content-requests" class="tab-content active">
+                <div class="controls-bar" style="gap: 1rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                    <div class="status-filter-container" style="display: flex; gap: 0.5rem; align-items: center;">
+                        <label for="status-filter" style="margin: 0; font-weight: 600; font-size: 0.95rem;">Filter / फिल्टर:</label>
+                        <select id="status-filter" style="padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); font-family: inherit; font-size: 0.9rem; background: #fff; cursor: pointer;">
+                            <option value="All">All Requests / सर्व मागण्या</option>
+                            <option value="Pending">Pending / प्रलंबित</option>
+                            <option value="Fulfilled">Fulfilled / पूर्ण झालेले</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button id="export-pdf-btn" class="secondary-btn" style="color:var(--primary-color); border-color:var(--primary-color);">
+                            📥 Export Requests PDF / PDF डाउनलोड
+                        </button>
+                        <button id="refresh-requests-btn" class="secondary-btn">
+                            🔄 Refresh / रिफ्रेश
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container glass-card">
+                    <table id="tickets-table">
+                        <thead>
+                            <tr>
+                                <th>Date / तारीख</th>
+                                <th>House No / घर क्र.</th>
+                                <th>Name & Address / नाव आणि पत्ता</th>
+                                <th>Contact / संपर्क</th>
+                                <th>Requirement / आवश्यकता</th>
+                                <th>Status / स्थिती</th>
+                                <th>Action / कृती</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tickets-body">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                    <div id="no-tickets" class="hidden empty-state">No water requests found / कोणतीही पाणी मागणी आढळली नाही.</div>
+                </div>
+            </div>
+
+            <!-- TAB 2: ADD NEW MEMBER -->
+            <div id="tab-content-add-member" class="tab-content hidden">
+                <div class="form-container glass-card" style="max-width: 650px; margin: 0 auto;">
+                    <h3 style="margin-bottom: 1rem; color: var(--primary-color);">Register New Consumer / नवीन ग्राहक नोंदणी करा</h3>
+                    <form id="add-member-form">
+                        <div class="input-group">
+                            <label for="reg-house-number">Unique House Number / युनिक घर क्रमांक <span style="color:#ef4444">*</span></label>
+                            <input type="text" id="reg-house-number" name="houseNumber" required placeholder="e.g. H-104" style="text-transform: uppercase; font-weight: 600;" />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="reg-name">Consumer Full Name / ग्राहकाचे पूर्ण नाव <span style="color:#ef4444">*</span></label>
+                            <input type="text" id="reg-name" name="name" required placeholder="e.g. Ramesh Patil" />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="reg-address">Full Address / पूर्ण पत्ता <span style="color:#ef4444">*</span></label>
+                            <input type="text" id="reg-address" name="address" required placeholder="e.g. House 104, Ward No. 3, Yerla" />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="reg-phone">Contact Number / संपर्क क्रमांक <span style="color:#ef4444">*</span></label>
+                            <input type="tel" id="reg-phone" name="phone" required placeholder="e.g. 9876543210" />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="reg-aadhar">Aadhar Card Number / आधार कार्ड क्रमांक</label>
+                            <input type="text" id="reg-aadhar" name="aadharNumber" placeholder="e.g. 1234-5678-9012" />
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="btn-save-member">
+                            Save Member Record / सदस्य नोंदणी जतन करा
+                        </button>
+                        <div id="member-form-message" class="message hidden"></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB 3: MEMBER DIRECTORY -->
+            <div id="tab-content-view-members" class="tab-content hidden">
+                <div class="controls-bar" style="gap: 1rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                    <div style="display: flex; gap: 0.5rem; align-items: center; flex: 1; max-width: 400px;">
+                        <input type="text" id="search-members" placeholder="Search by House No or Name..." style="padding: 0.6rem 1rem; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.9rem; width: 100%;" />
+                    </div>
+                    <button id="refresh-members-btn" class="secondary-btn">
+                        🔄 Refresh Members / रिफ्रेश
+                    </button>
+                </div>
+
+                <div class="table-container glass-card">
+                    <table id="members-table">
+                        <thead>
+                            <tr>
+                                <th>House No / घर क्र.</th>
+                                <th>Full Name / पूर्ण नाव</th>
+                                <th>Address / पत्ता</th>
+                                <th>Contact / संपर्क</th>
+                                <th>Aadhar No / आधार क्र.</th>
+                                <th>Reg. Date / तारीख</th>
+                                <th>Actions / कृती</th>
+                            </tr>
+                        </thead>
+                        <tbody id="members-body">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                    <div id="no-members" class="hidden empty-state">No registered members found / कोणीही नोंदणीकृत सदस्य आढळला नाही.</div>
+                </div>
+            </div>
+
+        </section>
+        
+    </main>
+
+    <!-- EDIT MEMBER MODAL -->
+    <div id="edit-member-modal" class="modal-backdrop hidden" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+        <div class="glass-card" style="width: 90%; max-width: 500px; background: #ffffff; padding: 2rem; border-radius: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="margin: 0; color: var(--primary-color);">Edit Member Details / सदस्य माहिती संपादित करा</h3>
+                <button type="button" id="close-modal-btn" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+            </div>
+            <form id="edit-member-form">
+                <input type="hidden" id="edit-original-house-number" />
+                <div class="input-group">
+                    <label>House Number / घर क्रमांक</label>
+                    <input type="text" id="edit-house-number" readonly style="background: #f1f5f9; font-weight: 700;" />
+                </div>
+                <div class="input-group">
+                    <label>Full Name / पूर्ण नाव</label>
+                    <input type="text" id="edit-name" required />
+                </div>
+                <div class="input-group">
+                    <label>Address / पत्ता</label>
+                    <input type="text" id="edit-address" required />
+                </div>
+                <div class="input-group">
+                    <label>Contact Number / संपर्क</label>
+                    <input type="tel" id="edit-phone" required />
+                </div>
+                <div class="input-group">
+                    <label>Aadhar Number / आधार क्रमांक</label>
+                    <input type="text" id="edit-aadhar" />
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="button" id="btn-cancel-edit" class="secondary-btn" style="flex: 1; justify-content: center;">Cancel / रद्द करा</button>
+                    <button type="submit" class="submit-btn" style="flex: 1; margin: 0;">Save Changes / जतन करा</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="manager.js"></script>
+</body>
+</html>
